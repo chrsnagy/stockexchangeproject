@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Blog } from './blog';
 import './rxjs-operators';
 import { StocksService } from './stocks.service';
 import { HttpClient } from '@angular/common/http';
