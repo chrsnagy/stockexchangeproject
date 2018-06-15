@@ -40,7 +40,7 @@ router.post('/login', function (req, res) {
             user.comparePassword(req.body.password, function (err, isMatch) {
                 if (isMatch && !err) {
                     //create token if password matches
-                    var token = jwt.sign(user.toJSON(), config.secret);
+                    var token = jwt.sign(user.toJSON(), Config.secret);
                     res.json({ success: true, token: 'JWT ' + token });
                 } else {
                     res.status(401).send({ success: false, msg: 'Wrong username or password! Please enter correct username and password.' });

@@ -21,21 +21,21 @@
             <h4 class="modal-title">Register administrator</h4>
           </div>
           <div class="modal-body">
-            <form>
+            <form (ngSubmit)="register()" #registerForm="ngForm">
               <div class="form-group">
                 <label for="inputUsername">Username</label>
-                <input type="text" class="form-control" id="inputUsername" placeholder="Username">
+                <input type="text" class="form-control" id="inputUsername" placeholder="Username" [(ngModel)]="registerData.username" required name="username">
               </div>
               <div class="form-group">
                 <label for="inputPassword">Password</label>
-                <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                <input type="password" class="form-control" id="inputPassword" placeholder="Password" [(ngModel)]="registerData.password" required name="password">
               </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-primary" [disabled]="!registerForm.form.valid">Register</button>
             </form>
           </div>
-          <div class="modal-footer">
+          <!-- <div class="modal-footer">
             <button class="btn btn-info btn-lg" (click)="isRegistering = false" data-dismiss="modal">Hide</button>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -53,21 +53,21 @@
               <h4 class="modal-title">Login to administrator panel</h4>
             </div>
             <div class="modal-body">
-              <form>
+              <form (ngSubmit)="login()" #loginForm="ngForm">
                 <div class="form-group">
                   <label for="inputUsername">Username</label>
-                  <input type="text" class="form-control" id="inputUsername" placeholder="Username">
+                  <input type="text" class="form-control" id="inputUsername" placeholder="Username" [(ngModel)]="loginData.username" required name="username">
                 </div>
                 <div class="form-group">
                   <label for="inputPassword">Password</label>
-                  <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                  <input type="password" class="form-control" id="inputPassword" placeholder="Password" [(ngModel)]="loginData.password" required name="password">
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary" [disabled]="!loginForm.form.valid">Submit</button>
               </form>
             </div>
-            <div class="modal-footer">
+            <!-- <div class="modal-footer">
               <button class="btn btn-info btn-lg" (click)="isLoggingIn = false" data-dismiss="modal">Hide</button>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>

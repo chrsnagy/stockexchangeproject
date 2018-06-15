@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Blog } from './blog';
 import './rxjs-operators';
 import { BlogService } from './blog.service';
+import { HttpClient } from '@angular/common/http';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -10,40 +12,61 @@ import { BlogService } from './blog.service';
   providers: [BlogService]
 })
 export class AppComponent implements OnInit {
-  isSubmitted = false;
   isRegistering = false;
   isLoggingIn = false;
+
   title = 'Stock Market Prices';
-  model = new Blog('', '');
-  public blogMessages = [];
+  message = '';
+  data: any;
 
-  constructor (private blogService: BlogService) {}
+  constructor(private blogService: BlogService, private http: HttpClient, private router: Router) { }
 
-  submitBlog() {
-    this.blogService.addBlog(this.model)
-      .subscribe(
-        blogMsg => {
-          // console.log("Messages:", messages);
-          this.model = blogMsg;
-          // this.getBlogs();
-        },
-        error =>  this.title = <any>error
-      );
+  registerData = { username: '', password: '' };
+  loginData = { username:'', password:'' };
+
+  register() {
+    this.http.post('/users/register', this.registerData).subscribe(resp => {
+      this.router.navigate(['/']);
+    }, err => {
+      this.message = err.error.msg;
+    });
   }
 
-  getBlogs() {
-    console.log('Subscribe to service');
-    this.blogService.getBlogs()
-      .subscribe(
-        messages => {
-          // console.log("Messages:",messages);
-          this.blogMessages = messages;
-        },
-        error =>  this.title = <any>error
-      );
+  login() {
+    this.http.post('/users/login',this.loginData).subscribe(resp => {
+      this.data = resp;
+      localStorage.setItem('jwtToken', this.data.token);
+      this.router.navigate(['administrator']);
+    }, err => {
+      this.message = err.error.msg;
+    });
   }
+
+  // submitBlog() {
+  //   this.blogService.addBlog(this.model)
+  //     .subscribe(
+  //       blogMsg => {
+  //         // console.log("Messages:", messages);
+  //         this.model = blogMsg;
+  //         // this.getBlogs();
+  //       },
+  //       error =>  this.title = <any>error
+  //     );
+  // }
+
+  // getBlogs() {
+  //   console.log('Subscribe to service');
+  //   this.blogService.getBlogs()
+  //     .subscribe(
+  //       messages => {
+  //         // console.log("Messages:",messages);
+  //         this.blogMessages = messages;
+  //       },
+  //       error =>  this.title = <any>error
+  //     );
+  // }
 
   ngOnInit() {
-    this.getBlogs();
+    //this.getBlogs();
   }
 }

@@ -12,23 +12,23 @@ export class BlogService {
     private socket;
     private url = window.location.origin;
 
-    /*
-     * Get blog messages from server
-     */
-    getBlogs (): Observable<Blog[]> {
-        let observable = new Observable(observer => {
-            console.log("Socket:",this.url);
-            this.socket = io(this.url);
-            this.socket.on('refresh', (data) => {
-                observer.next(data);
-            });
+    // /*
+    //  * Get blog messages from server
+    //  */
+    // getBlogs (): Observable<Blog[]> {
+    //     let observable = new Observable(observer => {
+    //         console.log("Socket:",this.url);
+    //         this.socket = io(this.url);
+    //         this.socket.on('refresh', (data) => {
+    //             observer.next(data);
+    //         });
 
-            return () => {
-                this.socket.disconnect();
-            };
-        });
-        return observable;
-    }
+    //         return () => {
+    //             this.socket.disconnect();
+    //         };
+    //     });
+    //     return observable;
+    // }
 
     /*
      * Send blog message to server
