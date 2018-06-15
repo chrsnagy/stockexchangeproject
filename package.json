@@ -1,6 +1,6 @@
 {
-  "name": "MEAN-socket-template",
-  "version": "0.0.0",
+  "name": "stockmarket-fameworks",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "prepare": "node -e \"console.log(child_process.execSync(os.type()==='Windows_NT'?'npm.cmd install':'npm install', {cwd: 'client'}).toString('utf8'))\"",
