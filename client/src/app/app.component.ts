@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
 
   register() {
     this.http.post('/users/register', this.registerData).subscribe(resp => {
-      this.router.navigate(['']);
+      this.router.navigate(['home']);
     }, err => {
       this.message = err.error.msg;
     });

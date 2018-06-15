@@ -16,9 +16,12 @@ const routes: Routes = [
     data: { title: 'Administrator Panel' }
   },
   {
+    path: 'home',
+    component: AppComponent
+  },
+  {
     path: '',
-    redirectTo: '/',
-    pathMatch: 'full'
+    component: AppComponent
   }
 ];
 

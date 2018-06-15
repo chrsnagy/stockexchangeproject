@@ -55,6 +55,32 @@ router.post("/remove", (req, res) => {
     });
 });
 
+/**
+ * Stock PRICE
+ */
+router.post("/stockPrice", (req, res) => {
+    var instance = new schema.StockPrice(req.body);
+    if (!req.body.price) {
+        res.json({ success: false, message: 'Stockprice not found!' });
+    } else {
+        if (!req.body.id) {
+            res.json({ success: false, message: 'Id not found!' });
+        } else {
+            schema.Stock.update(
+                { _id: req.body.id },
+                { $push: { stockPrice: { "$each": [instance], "$position": 0 } } },
+                function (err, StockPrice) {
+                    if (err) {
+                        res.json({ success: false, message: 'Could not save price!' });
+                    } else {
+                        res.json({ success: true, message: 'Price saved succesfuly!' });
+                        router.notifyclients();
+                    }
+                });
+        }
+    }
+});
+
 
 /* Notify stock values to connected clients */
 router.clients = [];
