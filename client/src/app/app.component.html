@@ -7,7 +7,7 @@
 <hr>
 <div class="body center-block">
   <div class="panel panel-primary panel-table">
-    <div class="panel-heading black">
+    <div class="panel-heading">
       <div class="panel-title text-center">
         <h2>Live data from the exchange</h2>
       </div>
@@ -85,8 +85,6 @@
   <div *ngIf="isRegistering === true">
     <div id="registerModal" class="modal fade" role="dialog">
       <div class="modal-dialog">
-
-        <!-- Modal Popup content-->
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" (click)="isRegistering = false" data-dismiss="modal">&times;</button>
@@ -107,9 +105,6 @@
               <button type="submit" class="btn btn-primary" [disabled]="!registerForm.form.valid" (click)="isRegistering = false">Register</button>
             </form>
           </div>
-          <!-- <div class="modal-footer">
-            <button class="btn btn-info btn-lg" (click)="isRegistering = false" data-dismiss="modal">Hide</button>
-          </div> -->
         </div>
       </div>
     </div>
@@ -119,8 +114,6 @@
   <div *ngIf="isLoggingIn === true">
     <div id="loginModal" class="modal fade" role="dialog">
       <div class="modal-dialog">
-
-        <!-- Modal Popup content-->
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" (click)="isLoggingIn = false" data-dismiss="modal">&times;</button>
@@ -141,9 +134,6 @@
               <button type="submit" class="btn btn-primary" [disabled]="!loginForm.form.valid">Submit</button>
             </form>
           </div>
-          <!-- <div class="modal-footer">
-              <button class="btn btn-info btn-lg" (click)="isLoggingIn = false" data-dismiss="modal">Hide</button>
-            </div> -->
         </div>
       </div>
     </div>
@@ -154,25 +144,3 @@
   </div>
   <div class="text-center small">Site by Krisztian S. Nagy</div>
 </div>
-
-<!-- <h2>Create new blog message</h2>
-<form (ngSubmit)="submitBlog()">
-  <div class="form-group">
-    <label for="author">Author</label>
-    <input type="text" class="form-control" id="author" required [(ngModel)]="model.author" name="author">
-  </div>
-  <div class="form-group">
-    <label for="body">Body</label>
-    <input type="text" class="form-control" id="body" required [(ngModel)]="model.body" name="body">
-  </div>
-  <button type="submit" class="btn btn-default">Submit</button>
-</form>
-
-<hr>
-
-<h2>All blog messages</h2>
-<ul>
-  <li *ngFor="let message of blogMessages">
-    {{message.author}} : "{{message.body}}"
-  </li>
-</ul> -->
