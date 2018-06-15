@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 
 import {  HttpClientModule } from '@angular/common/http';
 import { AdministratorComponent } from './administrator/administrator.component';
-import { RouterModule, Routes, CanActivate } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
