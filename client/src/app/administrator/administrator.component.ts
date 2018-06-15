@@ -82,10 +82,10 @@ export class AdministratorComponent implements OnInit {
 
 
     ngOnInit() {
-        if (localStorage.getItem('jwtToken') != null) {
+        //if (localStorage.getItem('jwtToken') != null) {
             this.getStocks();
-        } else {
-            this.router.navigate(['login']);
-        }
+        //} else {
+           // this.router.navigate(['home']);
+        //}
     }
 }
