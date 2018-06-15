@@ -37,7 +37,7 @@
                         <th>Date</th>
                     </tr>
                 </thead>
-                <tbody class="panel-body" *ngFor="let stockValue of stock.stockValue">
+                <tbody class="panel-body" *ngFor="let stockValue of stock.values">
                     <tr *ngIf="stockValue?.value">
                         <td>{{stockValue.value}} $</td>
                         <td>{{stockValue.date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
