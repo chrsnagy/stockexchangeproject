@@ -13,7 +13,7 @@ import { ObserveOnMessage } from 'rxjs/operators/observeOn';
 export class StocksService {
     private getStockUrl = 'stocks/get';
     private postStockUrl = 'stocks/post';
-    private postValueUrl = 'stock/stockPost';
+    private postValueUrl = 'stock/stockValue';
     private removeStockUrl = 'stocks/remove';
     constructor(private http: Http) { }
     private socket;

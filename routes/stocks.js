@@ -56,24 +56,24 @@ router.post("/remove", (req, res) => {
 });
 
 /**
- * Stock PRICE
+ * Stock value UPDATE
  */
-router.post("/stockPrice", (req, res) => {
-    var instance = new schema.StockPrice(req.body);
-    if (!req.body.price) {
-        res.json({ success: false, message: 'Stockprice not found!' });
+router.post("/stockValue", (req, res) => {
+    var instance = new schema.StockValue(req.body);
+    if (!req.body.value) {
+        res.json({ success: false, message: 'Stockvalue not found!' });
     } else {
         if (!req.body.id) {
             res.json({ success: false, message: 'Id not found!' });
         } else {
             schema.Stock.update(
                 { _id: req.body.id },
-                { $push: { stockPrice: { "$each": [instance], "$position": 0 } } },
-                function (err, StockPrice) {
+                { $push: { stockValue: { "$each": [instance], "$position": 0 } } },
+                function (err, StockValue) {
                     if (err) {
-                        res.json({ success: false, message: 'Could not save price!' });
+                        res.json({ success: false, message: 'Could not save value!' });
                     } else {
-                        res.json({ success: true, message: 'Price saved succesfuly!' });
+                        res.json({ success: true, message: 'Value saved succesfuly!' });
                         router.notifyclients();
                     }
                 });
