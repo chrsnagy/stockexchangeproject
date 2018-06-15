@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
 
 import {  HttpClientModule } from '@angular/common/http';
 import { AdministratorComponent } from './administrator/administrator.component';
@@ -17,18 +18,19 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    component: AppComponent
+    component: HomeComponent
   },
   {
     path: '',
-    component: AppComponent
+    component: HomeComponent
   }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    AdministratorComponent
+    AdministratorComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +38,7 @@ const routes: Routes = [
     HttpModule,
     HttpClientModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes,  { useHash: true, enableTracing: true })
   ],
   providers: [],
   bootstrap: [AppComponent]

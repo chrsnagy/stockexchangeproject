@@ -1,0 +1,146 @@
+<img class="center-block" src="https://www.ptacoaching.com/wp-content/uploads/2016/02/bg-banner.jpg" />
+<div class="header">
+  <h1 class="text-center">
+    {{title}}
+  </h1>
+</div>
+<hr>
+<div class="body center-block">
+  <div class="panel panel-primary panel-table">
+    <div class="panel-heading">
+      <div class="panel-title text-center">
+        <h2>Live data from the exchange</h2>
+      </div>
+    </div>
+    <div class="panel-body">
+      <table class="table table-responsive">
+        <thead>
+          <tr>
+            <th class="text-center">Name</th>
+            <th class="text-center">Value</th>
+            <th class="text-center">Last change</th>
+            <th class="text-center">Value history</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let stock of stocks">
+            <td>{{stock.name}}</td>
+            <td class="text-center" *ngFor="let stockValue of stock.values | slice:0:1;  let i=index">
+              <p *ngIf="i < 1">${{stockValue.value}}</p>
+            </td>
+            <td class="text-center" *ngFor="let stockValue of stock.values | slice:0:1;  let i=index">
+              <p *ngIf="i < 1">{{stockValue.date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+            </td>
+            <td class="text-center" *ngIf="stock.values.length < 1">No values yet!</td>
+            <td class="text-center" *ngIf="stock.values.length < 1">No dates yet!</td>
+
+            <td class="text-center">
+              <!-- Show History -->
+              <div *ngIf="stocksHistory.indexOf(stock._id) > -1">
+                <div id="myModal" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" (click)="collapse(stock._id)" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">{{stock.name}}</h4>
+                      </div>
+                      <div class="modal-body">
+                        <table class="table table-responsive">
+                          <thead>
+                            <tr>
+                              <th class="text-center">Value</th>
+                              <th class="text-center">Last Change</th>
+                            </tr>
+                          </thead>
+                          <tbody *ngFor="let stockValue of stock.values">
+                            <tr>
+                              <td class="text-center">${{stockValue.value}}</td>
+                              <td class="text-center">{{stockValue.date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="modal-footer">
+                        <button class="btn btn-info btn-lg" (click)="collapse(stock._id)" data-dismiss="modal">Hide</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Hide History -->
+              <div *ngIf="stocksHistory.indexOf(stock._id) === -1 ">
+                <button class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" (click)="expand(stock._id)">Show</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<hr>
+<div class="footer">
+  <!-- Registration Modal -->
+  <div *ngIf="isRegistering === true">
+    <div id="registerModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" (click)="isRegistering = false" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Register administrator</h4>
+          </div>
+          <div class="modal-body">
+            <form (ngSubmit)="register()" #registerForm="ngForm">
+              <div class="form-group">
+                <label for="inputUsername">Username</label>
+                <input type="text" class="form-control" id="inputUsername" placeholder="Username" [(ngModel)]="registerData.username" required
+                  name="username">
+              </div>
+              <div class="form-group">
+                <label for="inputPassword">Password</label>
+                <input type="password" class="form-control" id="inputPassword" placeholder="Password" [(ngModel)]="registerData.password"
+                  required name="password">
+              </div>
+              <button type="submit" class="btn btn-primary" [disabled]="!registerForm.form.valid" (click)="isRegistering = false">Register</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Login modal -->
+  <div *ngIf="isLoggingIn === true">
+    <div id="loginModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" (click)="isLoggingIn = false" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Login to administrator panel</h4>
+          </div>
+          <div class="modal-body">
+            <form (ngSubmit)="login()" #loginForm="ngForm">
+              <div class="form-group">
+                <label for="inputUsername">Username</label>
+                <input type="text" class="form-control" id="inputUsername" placeholder="Username" [(ngModel)]="loginData.username" required
+                  name="username">
+              </div>
+              <div class="form-group">
+                <label for="inputPassword">Password</label>
+                <input type="password" class="form-control" id="inputPassword" placeholder="Password" [(ngModel)]="loginData.password" required
+                  name="password">
+              </div>
+              <button type="submit" class="btn btn-primary" [disabled]="!loginForm.form.valid">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-center">
+    <button class="btn-link btn-info" data-toggle="modal" data-target="#registerModal" (click)="isRegistering = true">Register administrator</button>
+    <button class="btn-link btn-info" data-toggle="modal" data-target="#loginModal" (click)="isLoggingIn = true">Administrator panel</button>
+  </div>
+  <div class="text-center small">Site by Krisztian S. Nagy</div>
+</div>
