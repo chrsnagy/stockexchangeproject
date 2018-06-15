@@ -9,7 +9,7 @@
 </div>
 <hr>
 <div class="footer">
-  <!-- Show registration -->
+  <!-- Registration Modal -->
   <div *ngIf="isRegistering === true">
     <div id="registerModal" class="modal fade" role="dialog">
       <div class="modal-dialog">
@@ -18,10 +18,20 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" (click)="isRegistering = false" data-dismiss="modal" >&times;</button>
-            <h4 class="modal-title">Register as administrator</h4>
+            <h4 class="modal-title">Register administrator</h4>
           </div>
           <div class="modal-body">
-            Form will be here
+            <form>
+              <div class="form-group">
+                <label for="inputUsername">Username</label>
+                <input type="text" class="form-control" id="inputUsername" placeholder="Username">
+              </div>
+              <div class="form-group">
+                <label for="inputPassword">Password</label>
+                <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
           </div>
           <div class="modal-footer">
             <button class="btn btn-info btn-lg" (click)="isRegistering = false" data-dismiss="modal">Hide</button>
@@ -31,9 +41,40 @@
     </div>
   </div>
 
-  <!-- Hide registration -->
+    <!-- Login modal -->
+    <div *ngIf="isLoggingIn === true">
+      <div id="loginModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+  
+          <!-- Modal Popup content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" (click)="isLoggingIn = false" data-dismiss="modal" >&times;</button>
+              <h4 class="modal-title">Login to administrator panel</h4>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="inputUsername">Username</label>
+                  <input type="text" class="form-control" id="inputUsername" placeholder="Username">
+                </div>
+                <div class="form-group">
+                  <label for="inputPassword">Password</label>
+                  <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-info btn-lg" (click)="isLoggingIn = false" data-dismiss="modal">Hide</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <button class="btn-link btn-info" data-toggle="modal" data-target="#registerModal" (click)="isRegistering = true">Register administrator</button>
-    <div class="text-center"><button class="btn-link btn-info" data-toggle="modal" data-target="#loginModal" (click)="isRegistering = true">Administrator panel</button></div>
+    <div class="text-center"><button class="btn-link btn-info" data-toggle="modal" data-target="#loginModal" (click)="isLoggingIn = true">Administrator panel</button></div>
   <div class="text-center small">Site by Krisztian S. Nagy</div>
 </div>
 

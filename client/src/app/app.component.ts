@@ -12,6 +12,7 @@ import { BlogService } from './blog.service';
 export class AppComponent implements OnInit {
   isSubmitted = false;
   isRegistering = false;
+  isLoggingIn = false;
   title = 'Stock Market Prices';
   model = new Blog('', '');
   public blogMessages = [];
