@@ -13,4 +13,4 @@ exports.stockSchema = new Schema({
 });
 
 exports.Stock = mongoose.model('Stock', exports.stockSchema);
-exports.Value = mongoose.model('Price', exports.stockValueSchema);
+exports.Value = mongoose.model('Value', exports.stockValueSchema);

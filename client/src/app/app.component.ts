@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Blog } from './blog';
 import './rxjs-operators';
-import { BlogService } from './blog.service';
+import { StocksService } from './stocks.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from "@angular/router";
 
@@ -9,7 +9,7 @@ import { Router } from "@angular/router";
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [BlogService]
+  providers: [StocksService]
 })
 export class AppComponent implements OnInit {
   isRegistering = false;
@@ -19,14 +19,17 @@ export class AppComponent implements OnInit {
   message = '';
   data: any;
 
-  constructor(private blogService: BlogService, private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private stocksService: StocksService) { }
+
+  public stocks = [];
+  public stocksHistory = [];
 
   registerData = { username: '', password: '' };
   loginData = { username:'', password:'' };
 
   register() {
     this.http.post('/users/register', this.registerData).subscribe(resp => {
-      this.router.navigate(['/']);
+      this.router.navigate(['']);
     }, err => {
       this.message = err.error.msg;
     });
@@ -42,31 +45,26 @@ export class AppComponent implements OnInit {
     });
   }
 
-  // submitBlog() {
-  //   this.blogService.addBlog(this.model)
-  //     .subscribe(
-  //       blogMsg => {
-  //         // console.log("Messages:", messages);
-  //         this.model = blogMsg;
-  //         // this.getBlogs();
-  //       },
-  //       error =>  this.title = <any>error
-  //     );
-  // }
+  getStocks() {
+    console.log('Subscribe to service');
+    this.stocksService.getStocks()
+      .subscribe(
+        data => {
+          this.stocks = data;
+          console.log(data);
+        });
+  }
 
-  // getBlogs() {
-  //   console.log('Subscribe to service');
-  //   this.blogService.getBlogs()
-  //     .subscribe(
-  //       messages => {
-  //         // console.log("Messages:",messages);
-  //         this.blogMessages = messages;
-  //       },
-  //       error =>  this.title = <any>error
-  //     );
-  // }
+  expand(id) {
+    this.stocksHistory.push(id);
+  }
+
+  collapse(id) {
+    const index = this.stocksHistory.indexOf(id);
+    this.stocksHistory.splice(index, 1);
+  }
 
   ngOnInit() {
-    //this.getBlogs();
+    this.getStocks();
   }
 }

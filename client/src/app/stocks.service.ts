@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { Stock, StockValue } from '../stocksmodel';
-import { Observable }     from 'rxjs/Observable';
+import { Stock, StockValue } from './stocksmodel';
+import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 import * as io from 'socket.io-client';
 
@@ -10,33 +10,33 @@ import 'rxjs/add/operator/catch';
 import { ObserveOnMessage } from 'rxjs/operators/observeOn';
 
 @Injectable()
-export class AdministratorService {
-    // private getStockUrl = 'stock/get';  // URL to web API
-    // private postStockUrl = 'stock/post';  // URL to web API
+export class StocksService {
+    private getStockUrl = 'stocks/get';
+    private postStockUrl = 'stocks/post';
     // private postPriceUrl = 'stock/stockPost';
-    // private deleteStockUrl = 'stock/delete';
-    // constructor (private http: Http) {}
-    // private socket;
-    // private url = window.location.origin;
+    private removeStockUrl = 'stocks/remove';
+    constructor(private http: Http) { }
+    private socket;
+    private url = window.location.origin;
 
-    // /*
-    //  * Get stocks messages from server
-    //  */
-    // getStocks (): Observable<Stock[]> {
-    //     let observable = new Observable(observer => {
-    //         console.log('Socket:', this.url);
-    //         this.socket = io(this.url);
-    //         this.socket.on('refresh', (data) => {
-    //             console.log('hello', data);
-    //             observer.next(data);
-    //         });
+    /**
+     * Gets stock data
+     */
+    getStocks(): Observable<Stock[]> {
+        let observable = new Observable<Stock[]>(observer => {
+            console.log('Socket:', this.url);
+            this.socket = io(this.url);
+            this.socket.on('refresh', (data) => {
+                console.log('hello', data);
+                observer.next(data);
+            });
 
-    //         return () => {
-    //             this.socket.disconnect();
-    //         };
-    //     });
-    //     return observable;
-    // }
+            return () => {
+                this.socket.disconnect();
+            };
+        });
+        return observable;
+    }
 
     // /*
     //  * Send Stocks message to server
