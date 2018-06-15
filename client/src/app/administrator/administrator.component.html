@@ -41,10 +41,10 @@
                 </thead>
                 <tbody class="panel-body" *ngFor="let stockValue of stock.stockValue">
                     <tr *ngIf="stockValue?.value">
-                        <td>{{stockPrice.price}} $</td>
-                        <td>{{stockPrice.date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <td>{{stockValue.value}} $</td>
+                        <td>{{stockValue.date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                     </tr>
-                    <tr *ngIf="stockValue.value?.lenght <= 0">
+                    <tr *ngIf="stockValue.value?.lenght < 0">
                         <td>No values found</td>
                     </tr>
                 </tbody>

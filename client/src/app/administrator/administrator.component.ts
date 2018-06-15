@@ -34,7 +34,7 @@ export class AdministratorComponent implements OnInit {
 
     createValueForm() {
         this.valueForm = this.formBuilder.group({
-            price: ['', Validators.compose([
+            value: ['', Validators.compose([
                 Validators.required,
                 Validators.minLength(1),
                 Validators.maxLength(200)
