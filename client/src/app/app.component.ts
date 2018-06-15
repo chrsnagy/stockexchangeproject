@@ -11,7 +11,8 @@ import { BlogService } from './blog.service';
 })
 export class AppComponent implements OnInit {
   isSubmitted = false;
-  title = 'MEAN app with Socket IO';
+  isRegistering = false;
+  title = 'Stock Market Prices';
   model = new Blog('', '');
   public blogMessages = [];
 
