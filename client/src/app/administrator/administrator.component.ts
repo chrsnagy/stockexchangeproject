@@ -12,14 +12,80 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class AdministratorComponent implements OnInit {
     title = "Create new stock listing";
-    constructor (
+    stockValue = new StockValue("", "");
+    model = new Stock('', new Array<StockValue>());
+
+    public stocks = [];
+    valueForm;
+    newValue = [];
+
+    constructor(
         private stockService: StocksService,
         private router: Router,
         private formBuilder: FormBuilder
-      ) {
-          
-      }
+    ) {
+        this.createValueForm();
+    }
+
+    logout() {
+        localStorage.removeItem('jwtToken');
+        this.router.navigate(['/']);
+    }
+
+    createValueForm() {
+        this.valueForm = this.formBuilder.group({
+            price: ['', Validators.compose([
+                Validators.required,
+                Validators.minLength(1),
+                Validators.maxLength(200)
+            ])]
+        });
+    }
+
+    getStocks() {
+        this.stockService.getStocks()
+            .subscribe(
+                data => {
+                    this.stocks = data;
+                    console.log(data);
+                });
+    }
+
+    submitStock() {
+        this.stockService.addStock(this.model)
+            .subscribe(
+                data => {
+                    this.model = data.Stock;
+                },
+                error => console.log(error, 'Error while submitting stock!')
+            );
+    }
+
+    submitValue(id) {
+        const value = this.valueForm.get('value').value;
+        this.stockService.addValue(id, value)
+            .subscribe(data => {
+                const index = this.newValue.indexOf(id);
+                this.newValue.splice(index, 1);
+            },
+                error => console.log(error, 'Error while submitting stock value!')
+            );
+    }
+
+    removeStock(id) {
+        this.stockService.removeStock(id)
+            .subscribe(data => { },
+                error => console.log(error, 'Error while removing stock!')
+            );
+    }
+
+
 
     ngOnInit() {
+        if (localStorage.getItem('jwtToken') != null) {
+            this.getStocks();
+        } else {
+            this.router.navigate(['login']);
+        }
     }
 }

@@ -1,15 +1,59 @@
 <img class="center-block" src="https://www.ptacoaching.com/wp-content/uploads/2016/02/bg-banner.jpg" />
 <div class="header">
     <h1 class="text-center">{{title}}</h1>
+    <div class="text-center">
+            <button class="btn-link btn-info" (click)="logout()">Logout administrator</button>
+    </div>
 </div>
 <hr>
 <div class="body">
+        <form (ngSubmit)="submitStock()">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" required [(ngModel)]="model.name" name="name">
+                </div>
+                <button ng-click="submitStock()" type="submit" class="btn btn-large btn-block btn-info">Add stock</button>
+        </form>
 
+    <h1>Current stocks in database</h1>
+    <div class="row">
+        <div class="panel panel-default col-sm-12" *ngFor="let stock of stocks">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2 class="li-header"> {{stock.name}} </h2>
+                </div>
+                <div class="col-sm-2 col-sm-offset-4" style="margin-top:25px">
+                    <div *ngIf="newValue.indexOf(stock._id)">
+                        <form [formGroup]="valueForm">
+                            <input type="text" class="form-control" formControlName="value">
+                            <button type="submit" name="button" class="btn btn-block btn-info pull-right" (click)="submitValue(stock._id)">Add Value</button>
+                            <button type="submit" name="button" class="btn btn-block btn-info pull-right" (click)="removeStock(stock._id)">Remove Stock</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Value</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody class="panel-body" *ngFor="let stockValue of stock.stockValue">
+                    <tr *ngIf="stockValue?.value">
+                        <td>{{stockPrice.price}} $</td>
+                        <td>{{stockPrice.date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    </tr>
+                    <tr *ngIf="stockValue.value?.lenght <= 0">
+                        <td>No values found</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <hr>
 </div>
 <hr>
 <div class="footer">
-    <div class="text-center">
-        <button class="btn-link btn-info" (click)="logout()">Logout administrator</button>
-    </div>
     <div class="text-center small">Site by Krisztian S. Nagy</div>
 </div>
